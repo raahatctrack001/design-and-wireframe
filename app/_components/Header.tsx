@@ -1,6 +1,8 @@
-import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { LoginLink, LogoutLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
 export default function Header(){
+    const { user } = useKindeBrowserClient();
     return <header className="bg-black">
     <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
       <a className="block text-teal-600" href="#">
@@ -48,15 +50,15 @@ export default function Header(){
               className="block rounded-md px-5 py-2.5 text-sm font-medium text-white transition hover:bg-gray-500"
             //   href="#"
             >
-                <LoginLink> Login </LoginLink>
+                {user ? <LogoutLink> Logout </LogoutLink> : <LoginLink> Login </LoginLink>}
             </div>
   
-            <div
+            {!user && <div
               className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-black transition hover:text-gray-800/75 sm:block"
             //   href="#"
             >
               <RegisterLink> Register </RegisterLink>
-            </div>
+            </div>}
           </div>
   
           <button
